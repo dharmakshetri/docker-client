@@ -4186,6 +4186,7 @@ public class DefaultDockerClientTest {
     assertThat(info.state().running(), equalTo(true));
 
     sut.stopContainer(container.id(), 5);
+    await().until(containerIsRunning(sut, container.id()), is(false));
 
     // A ContainerNotFoundException should be thrown since the container is removed when it stops
     sut.inspectContainer(container.id());
